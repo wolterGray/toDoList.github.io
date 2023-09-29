@@ -1,0 +1,9 @@
+
+.wrapper{
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+	justify-items:baseline;
+	align-items: center;
+	margin: 0 auto;
+	color: #ffffff
+}

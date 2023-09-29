@@ -1,0 +1,73 @@
+@import "/src/assets/base/variables.scss";
+
+.task_item {
+	position: relative;
+	border-bottom: 1px dotted transparentize($color: $element-dec-color, $amount: 0.6);
+	margin-bottom: 20px;
+	color: $main-text-color;
+	
+}
+
+.task_title {
+	display: flex;
+	align-items: center;
+}
+.description {
+	font-size: 15px;
+	color: $main-text-color;
+	padding: 10px;
+	display: grid;
+	align-items: center;
+	grid-template-columns: 2fr 1fr;
+	gap: 10px;
+	width: 100%;
+}
+.text {
+	word-wrap: break-word;
+	line-height: 1.5;
+}
+.text_empty {
+	color: transparentize($color: $main-text-color, $amount: 0.5);
+}
+.lead_date {
+	justify-self: end;
+	opacity: 0.4;
+	color: $main-text-color;
+}
+.date {
+	border: none;
+	background-color: transparent;
+	font-family: "Saira", sans-serif;
+	cursor: pointer;
+	outline: none;
+	color: $main-text-color;
+	border-radius: 10px;
+
+	&::-webkit-calendar-picker-indicator {
+		cursor: pointer;
+		padding: 5px;
+		filter: invert(1);
+		background-color: $main-background-color;
+		border-radius: 50%;
+	}
+}
+.time {
+	border: none;
+	background-color: transparent;
+	font-family: "Saira", sans-serif;
+	cursor: pointer;
+	outline: none;
+	color: $main-text-color;
+
+	&::-webkit-calendar-picker-indicator {
+		cursor: pointer;
+		background-color: $main-background-color;
+		padding: 5px;
+		border-radius: 50%;
+		filter: invert(1);
+	}
+}
+.check {
+	font-size: 25px;
+	cursor: pointer;
+}

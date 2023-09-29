@@ -1,0 +1,46 @@
+@import "/src/assets/base/variables.scss";
+
+.input {
+	width: 100%;
+	height: 40px;
+	font-size: 20px;
+	border-radius: 10px;
+	margin-bottom: 20px;
+	outline: none;
+	border: 1px solid $main-text-color;
+	background: transparent;
+	padding-left: 10px;
+	color: $main-text-color;
+	box-sizing: border-box;
+	
+	
+	&::placeholder {
+		color: transparentize($main-text-color, 0.5);
+		font-size: 18px;
+	}
+}
+.input_error {
+	border: 1px solid red;
+	animation: inputer 0.3s  ease-in-out;
+	&::placeholder{
+		color: rgba(255, 0, 0, 0);
+	}
+}
+@keyframes inputer {
+	0% {
+		transform: scale(1);
+	}
+	25%{
+		transform: scale(1.010);
+	}
+	50%{
+		transform: scale(1);
+	}
+	75%{
+		transform: scale(1.010);
+	}
+	
+	100% {
+		transform: scale(1);
+	}
+}

@@ -1,0 +1,56 @@
+@import "/src/assets/base/variables.scss";
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+.circle{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.progress-circle {
+	--color: red;
+	--color-grad:'';
+	--color-2: rgb(240, 240, 240);
+	--circle-size: 100px;
+	--border-width: 10px;
+	width: var(--circle-size);
+	height: var(--circle-size);
+	border-radius: 50%;
+	margin: 0.5em;
+	background-image: conic-gradient(var(--color), var(--color-grad) var(--progress), var(--color-2) 0);
+	position: relative;
+	transform: scale(-1, 1);
+}
+
+.progress-circle::before {
+	--inner-circle-size: calc(var(--circle-size) - var(--border-width));
+	--inner-circle-gap: calc(var(--border-width) / 2);
+	content: "";
+	display: block;
+	width: var(--inner-circle-size);
+	height: var(--inner-circle-size);
+	// background-color: $header-background-color;
+	border-radius: 50%;
+	position: relative;
+	left: var(--inner-circle-gap);
+	top: var(--inner-circle-gap);
+}
+.progress-num {
+	font-family: 'Courier New', Courier, monospace;
+	font-size: 10px;
+	font-weight: 900;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(-1, 1);
+	color: #fff;
+	
+}
+.circle-title{
+	color: #fff;
+	font-weight: 700;
+}

@@ -1,0 +1,12 @@
+@import "/src/assets/base/variables.scss";
+.nothing {
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	font-size: 30px;
+	z-index: -1;
+	width: 80%;
+	color: transparentize($main-text-color, 0.6);
+}

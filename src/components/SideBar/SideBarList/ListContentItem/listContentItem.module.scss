@@ -1,0 +1,58 @@
+@import "/src/assets/base/variables.scss";
+
+.icon_list{
+	font-size: 14px;
+	height: 0;
+	transform: scale(0);
+	transition: all 0.3s ease-in-out;
+}
+.item {
+	font-size: 18px;
+	cursor: pointer;
+	line-height: 0;
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.4s ease-in-out;
+	transform: translateY(-25px);
+	color: $main-text-color;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding-left: 10px;
+	border-bottom:1px dashed transparentize($color: $main-text-color, $amount: 0.7) ;
+	// position: relative;
+	
+}
+.item_visible {
+	line-height: 1;
+	padding: 10px;
+	opacity: 1;
+	visibility: visible;
+	transform: translateY(0);
+	transition: all 0.3s ease-in-out;
+	.icon_list{
+		font-size: 14px;
+		height: 100%;
+		transform: scale(1);
+		transition: all 0.3s ease-in-out;
+	}
+	&:last-child{
+		margin-bottom: 20px;
+	}
+	&:hover {
+		background-color: $sec-hover-background-color;
+	}
+}
+.item_text{
+	font-size: 16px;
+	font-weight: 600;
+	
+}
+.item_count{
+	width: 10px;
+	font-size: 10px;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 20px;
+}

@@ -1,0 +1,10 @@
+.weather {
+	display: flex;
+	align-items: center;
+	.weather_icn {
+		width: 30px;
+	}
+	.degrees {
+		margin-left: 5px;
+	}
+}

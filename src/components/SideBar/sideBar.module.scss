@@ -1,0 +1,22 @@
+@import "../../assets/base/variables.scss";
+
+.navBar {
+	min-height: 100%;
+	transform: translateX(-500px);
+	width: 0;
+	padding: 20px;
+	font-size: 25px;
+	background-color: $main-background-color;
+	transition: transform 0.3s ease-out, width .3s ease-out;
+	
+}
+.navActive{
+	transform: translateX(0);
+	width: 25%;
+	
+	// position: relative;
+}
+.wrapper {
+	padding: 20px;
+	
+}

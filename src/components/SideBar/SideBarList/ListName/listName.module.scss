@@ -1,0 +1,44 @@
+@import "/src/assets/base/variables.scss";
+
+.listName {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+	font-size: 18px;
+	cursor: pointer;
+	color: $main-text-color;
+	transition: color .3s ease-in-out;
+	&:hover {
+		color: $hover-text-color;
+	}
+}
+
+
+.nameFlex {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 90%;
+	position: relative;
+	padding-left: 10px;
+	&::after {
+		content: "";
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		z-index: 11;
+	}
+
+	p {
+		font-size: 1em;
+		font-weight: 600;
+		letter-spacing: 0.6px;
+	}
+}
+.arrow_icon {
+	font-size: 14px;
+	transition: transform 0.3s ease-out;
+}
+.arrow_icon_rotate {
+	transform: rotate(180deg);
+}
