@@ -11,7 +11,7 @@ import ModalWindTask from "../CreateModalTasksWind/ModalWindTask";
 function Main({isBurger, tasksData, setTasksData}) {
   const [tasksFilter, setTasksFilter] = React.useState(null);
   const [isModalTheme, setIsModalTheme] = React.useState(false);
-  // const day = new Date();
+  const day = new Date();
   const [isModalTask, setIsModalTask] = React.useState(false);
   const [id, setId] = React.useState("");
   function daysInMonth(month, year) {
@@ -178,9 +178,9 @@ function Main({isBurger, tasksData, setTasksData}) {
       );
   };
 
-  // React.useEffect(() => {
-  //   setTasksFilter(tasksData);
-  // }, [tasksData]);
+  React.useEffect(() => {
+    setTasksFilter(tasksData);
+  }, [tasksData]);
   const isModal = (isTheme, isTask) => {
     if (isTheme) {
       return (
