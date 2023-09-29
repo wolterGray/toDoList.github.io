@@ -5,14 +5,13 @@ import Task from "../Tasks/Task";
 import cl from "./main.module.scss";
 import Container from "../UI/container/Container";
 import NothingPage from "../NothingPage/NothingPage";
-
 import ModalWindTheme from "../CreateModalTasksWind/ModalWindTheme";
 import ModalWindTask from "../CreateModalTasksWind/ModalWindTask";
 
 function Main({isBurger, tasksData, setTasksData}) {
   const [tasksFilter, setTasksFilter] = React.useState(null);
   const [isModalTheme, setIsModalTheme] = React.useState(false);
-  const day = new Date();
+  // const day = new Date();
   const [isModalTask, setIsModalTask] = React.useState(false);
   const [id, setId] = React.useState("");
   function daysInMonth(month, year) {
@@ -128,15 +127,15 @@ function Main({isBurger, tasksData, setTasksData}) {
       setTasksFilter(
         tasksData.map((e) =>
           e.tasks.length > 0
-            ? {...e,
+            ? {
+                ...e,
                 tasks: e.tasks.filter(
                   (f) => parseInt(f.date.split("-")[2]) == day.getDate()
                 ),
               }
             : e
         )
-      )
-      
+      );
 
     if (name == "Tomorrow")
       setTasksFilter(
@@ -179,10 +178,9 @@ function Main({isBurger, tasksData, setTasksData}) {
       );
   };
 
-  // console.log(tasksData);
-  React.useEffect(() => {
-    setTasksFilter(tasksData);
-  }, [tasksData]);
+  // React.useEffect(() => {
+  //   setTasksFilter(tasksData);
+  // }, [tasksData]);
   const isModal = (isTheme, isTask) => {
     if (isTheme) {
       return (
@@ -210,7 +208,6 @@ function Main({isBurger, tasksData, setTasksData}) {
     }
   };
 
-  console.log(tasksFilter);
   return (
     <div className={cl.main_wrap}>
       {isModal(isModalTheme, isModalTask)}
