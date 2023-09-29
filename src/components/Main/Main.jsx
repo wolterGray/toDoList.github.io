@@ -6,7 +6,6 @@ import cl from "./main.module.scss";
 import Container from "../UI/container/Container";
 import NothingPage from "../NothingPage/NothingPage";
 
-import CreateModalTasks from "../CreateModalTasksWind/ModalWindTheme";
 import ModalWindTheme from "../CreateModalTasksWind/ModalWindTheme";
 import ModalWindTask from "../CreateModalTasksWind/ModalWindTask";
 
