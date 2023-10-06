@@ -7,7 +7,7 @@ function Container({wd = 80, hd = 100,color = 25, children, className}) {
     margin: "0 auto",
     position: 'relative',
 	  transition: "all .3s ease-in-out",
-    
+    overflow:'scroll'
   };
 
   return <div className={className} style={stylesContainer}>{children}</div>;

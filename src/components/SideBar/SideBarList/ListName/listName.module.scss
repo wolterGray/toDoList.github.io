@@ -13,7 +13,14 @@
 	}
 }
 
-
+.staticItemList{
+	color: $main-text-color;
+	font-size: 18px;
+	font-weight: 600;
+	padding-left: 10px;
+	padding-bottom: 5px;
+	border-bottom:1px dashed $main-text-color;
+}
 .nameFlex {
 	display: flex;
 	align-items: center;

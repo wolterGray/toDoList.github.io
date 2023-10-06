@@ -9,9 +9,12 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	
+	
 }
 
 .progress-circle {
+	
 	--color: red;
 	--color-grad:'';
 	--color-2: rgb(240, 240, 240);
@@ -33,7 +36,7 @@
 	display: block;
 	width: var(--inner-circle-size);
 	height: var(--inner-circle-size);
-	// background-color: $header-background-color;
+	background:#1e2d2f;
 	border-radius: 50%;
 	position: relative;
 	left: var(--inner-circle-gap);
@@ -47,8 +50,8 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%) scale(-1, 1);
-	color: #fff;
-	
+	color: $main-text-color;
+	font-weight: 600;
 }
 .circle-title{
 	color: #fff;

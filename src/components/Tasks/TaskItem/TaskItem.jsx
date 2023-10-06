@@ -4,6 +4,7 @@ import CheckBox from "../../UI/customCheckBox/CheckBox";
 import {BsCheck} from "react-icons/bs";
 import InputEdit from "../../UI/InputEdit/InputEdit";
 import TaskItemTools from "../TaskTools/TaskTools";
+import cn from "classnames";
 
 function TaskItem({
   name,
@@ -11,34 +12,36 @@ function TaskItem({
   id,
   date,
   time,
+  isDone,
   removeTask,
   editTaskTitle,
   editTaskDesc,
   editTaskDate,
   editTaskTime,
-  editTaskIsDone
+  editTaskIsDone,
 }) {
   const [editModeTitle, setEditModeTitle] = React.useState(false);
-  const [isDone, setIsDone] = React.useState(false);
+  const [isComplete, setIsComplete] = React.useState(false);
   const [editModeDescription, setEditModeDescription] = React.useState(false);
   const [inputValueTitle, setInputValueTitle] = React.useState(name);
   const [inputValueDesc, setInputValueDesc] = React.useState(description);
 
   const saveEditTitle = (id, inputValue) => {
     editTaskTitle(id, inputValue);
+    setEditModeTitle(false);
   };
   const saveEditDesc = (id, inputValue) => {
     editTaskDesc(id, inputValue);
+    setEditModeDescription(false);
   };
 
-  
   return (
-    <div className={cl.task_item} onClick={()=>{
-      setIsDone(!isDone)
-      editTaskIsDone(id, isDone)
-      }}>
+    <div className={cl.task_item}>
       {editModeTitle ? (
         <InputEdit
+          autoFocus={true}
+          brd={false}
+          h={"max-content"}
           keyInstruct={setEditModeTitle}
           inputValue={inputValueTitle}
           setInputValue={setInputValueTitle}
@@ -52,6 +55,9 @@ function TaskItem({
             markColor={"green"}
             size={20}
             name={name}
+            onClick={()=>editTaskIsDone(id, !isDone)}
+            controlCheckBox={isComplete}
+            setControlCheckBox={setIsComplete}
           />
           <TaskItemTools
             removeTask={removeTask}
@@ -63,15 +69,23 @@ function TaskItem({
       )}
       {editModeDescription ? (
         <InputEdit
-          keyInstruct={setEditModeDescription}
+          brd={false}
+          h={"2.5rem"}
+          autoFocus={true}
+          keyInstruct={() => saveEditDesc(id, inputValueDesc)}
           inputValue={inputValueDesc}
           setInputValue={setInputValueDesc}
           callBack={() => saveEditDesc(id, inputValueDesc)}
         />
       ) : (
-        <div className={cl.description}>
-          {description ? <div className={cl.text}>{description}</div>:<div className={cl.text_empty}>No description. Select "Edit Description" to create.</div>}
-          
+        <div className={cn(cl.description, isDone && cl.descriptionDone)}>
+          {description ? (
+            <div className={cl.text}>{description}</div>
+          ) : (
+            <div className={cl.text_empty}>
+              No description. Select "Edit Description" to create.
+            </div>
+          )}
           <div className={cl.lead_date}>
             <input
               type="date"

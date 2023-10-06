@@ -5,12 +5,12 @@
 	border-bottom: 1px dotted transparentize($color: $element-dec-color, $amount: 0.6);
 	margin-bottom: 20px;
 	color: $main-text-color;
-	
 }
 
 .task_title {
 	display: flex;
 	align-items: center;
+	
 }
 .description {
 	font-size: 15px;
@@ -21,6 +21,10 @@
 	grid-template-columns: 2fr 1fr;
 	gap: 10px;
 	width: 100%;
+	cursor:default;
+}
+.descriptionDone{
+	opacity: 0.3;
 }
 .text {
 	word-wrap: break-word;

@@ -1,13 +1,10 @@
-import React from "react";
+import React, {Children} from "react";
 import cl from "./nothingPage.module.scss";
 
-function NothingPage() {
+function NothingPage({children}) {
   return (
     <div className={cl.nothing}>
-      <p>
-        There is nothing here yet... Use the left panel to create your first
-        topic and add Tasks to it!
-      </p>
+      <p>{children}</p>
     </div>
   );
 }

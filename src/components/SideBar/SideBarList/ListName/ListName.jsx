@@ -9,13 +9,9 @@ function ListName({icon, name, children, isListOpen, setIsListOpen, onClick}) {
         {icon}
         <div className={cl.nameFlex}>
           <p>{name}</p>
-          {children.length > 0 && (
-            <BsChevronUp
-              className={`${cl.arrow_icon} ${
-                isListOpen && cl.arrow_icon_rotate
-              }`}
-            />
-          )}
+         {children && <BsChevronUp
+            className={`${cl.arrow_icon} ${isListOpen && cl.arrow_icon_rotate}`}
+          />}
         </div>
       </div>
       <div className={cl.list_content} onClick={onClick}>

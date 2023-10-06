@@ -5,7 +5,7 @@ import InputEdit from "../../UI/InputEdit/InputEdit";
 import Button from "../../UI/button/Button";
 import AddButton from "../../UI/AddButton/AddButton";
 
-function TaskCreateField({addNewTask, id,setId, setIsModalTask}) {
+function TaskCreateField({addNewTask, id,setId, setIsModal}) {
   const [inputValueCreate, setInputValueCreate] = React.useState([]);
   const [inputVisible, setInputVisible] = React.useState(false);
   const createAndClear = () => {
@@ -25,7 +25,7 @@ function TaskCreateField({addNewTask, id,setId, setIsModalTask}) {
         inputValue={inputValueCreate}
         setInputValue={setInputValueCreate}
         callBack={createAndClear}
-        keyInstruct={addNewTask}
+        keyInstr={()=> setIsModal(null)}
         h={30}
         w={100}
         fz={20}
@@ -34,7 +34,7 @@ function TaskCreateField({addNewTask, id,setId, setIsModalTask}) {
     </div>
   ) : (
     <AddButton mB={30} changeFunc={()=>{
-      setIsModalTask(true)
+      setIsModal(false)
       setId(id)
     }} name="Create New Task" />
   );

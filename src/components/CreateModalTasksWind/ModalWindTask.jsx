@@ -2,16 +2,15 @@ import React from "react";
 import cl from "./createModalWind.module.scss";
 import InputEdit from "../UI/InputEdit/InputEdit";
 import {BsXLg} from "react-icons/bs";
-import Calendar from "react-calendar";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
-function ModalWindTask({setIsModalTask, addNewTask, idTheme}) {
+function ModalWindTask({setIsModal, addNewTask, idTheme}) {
   const [taskNameValue, setTaskNameValue] = React.useState("");
   const [taskDescValue, setTaskDescValue] = React.useState("");
   const [taskDate, setTaskDate] = React.useState('');
   const [taskTime, setTaskTime] = React.useState("");
   const [error, setError] = React.useState(false);
-  const Date1 = new Date
+  
   
 
   const onChangeThemeInput = () => {
@@ -21,7 +20,7 @@ function ModalWindTask({setIsModalTask, addNewTask, idTheme}) {
   const addClearAndClose = () => {
     if (taskNameValue.trim().length > 0) {
       addNewTask(idTheme, taskNameValue, taskDescValue, taskDate, taskTime);
-      setIsModalTask(false);
+      setIsModal(null);
     } else setError(true);
   };
 
@@ -36,26 +35,28 @@ function ModalWindTask({setIsModalTask, addNewTask, idTheme}) {
           <h5 className={cl.title}>Create New Task</h5>
           <BsXLg
             className={cl.close_icn}
-            onClick={() => setIsModalTask(false)}
+            onClick={() => setIsModal(null)}
           />
           <div className={cl.task_name}>
             <p className={cl.newLabel}>Task Name</p>
-            {error && <ErrorMessage error={"Field cannot be empty!"} />}
             <InputEdit
-              callBack={() => addClearAndClose()}
-              keyInstruct={setIsModalTask}
+             onBlur={false}
+              autoFocus={true}
+              callBack={addClearAndClose}
+              keyInstruct={()=> setIsModal()}
               error={error}
               id={""}
               inputValue={taskNameValue}
               setInputValue={setTaskNameValue}
-              plcH={'Read "A Game of thrones"'}
+              plcH={'Read "Game of thrones"'}
             />
           </div>
           <div className={cl.task_description}>
             <p className={cl.newLabel}>Task description</p>
             <InputEdit
+            onBlur={false}
               callBack={() => addClearAndClose()}
-              keyInstruct={setIsModalTask}
+              keyInstruct={()=>setIsModal(null)}
               inputValue={taskDescValue}
               setInputValue={setTaskDescValue}
               plcH={"Page 33, chapter 2"}
@@ -82,7 +83,7 @@ function ModalWindTask({setIsModalTask, addNewTask, idTheme}) {
           <div className={cl.buttons}>
             <button
               className={cl.cancel_btn}
-              onClick={() => setIsModalTask(false)}>
+              onClick={() => setIsModal(null)}>
               Cancel
             </button>
             <button

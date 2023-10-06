@@ -1,10 +1,9 @@
 import React from "react";
 import cl from "./header.module.scss";
-import {BsCheck2All} from "react-icons/bs";
-import Weather from "../Weather/Weather";
 import cn from "classnames";
 import Clock from "../Clock/Clock";
 import DownloadCircle from "../UI/downloadCircle/DownloadCircle";
+import Logo from "../Logo/Logo";
 
 function Header({isBurger, setIsBurger, tasksData}) {
   return (
@@ -16,14 +15,11 @@ function Header({isBurger, setIsBurger, tasksData}) {
             onClick={() => setIsBurger(!isBurger)}>
             <span></span>
           </div>
-          <a href="#!" className={cl.logo}>
-            <BsCheck2All className={cl.logo_icon} />
-            <p href="!#">myToDo</p>
-          </a>
+         <Logo/>
         </div>
         <div className={cl.right_content}>
           <Clock/>
-          {/* <DownloadCircle tasksData={tasksData}/> */}
+          <DownloadCircle tasksData={tasksData}/>
           <div className={cl.user}>
             <button className={cn(cl.button, cl.logIn)}>Log in</button>
             <button className={cn(cl.button, cl.singUp)}>Sing up</button>

@@ -1,3 +1,5 @@
+@import '/src/assets/base/variables.scss';
+
 .wrapper {
 	display: flex;
 	align-items: center;
@@ -33,19 +35,18 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	color: #000;
+	color: $main-text-color;
 	font-size: 10px;
 	opacity: 0;
 	transition: opacity .1s ease-in;
 }
 
 .visible {
-	
 	opacity: 1;
 }
 .active_through {
 	text-decoration: line-through;
-	color: #000;
+	color: $main-text-color;
 	opacity: 0.5;
 }
 

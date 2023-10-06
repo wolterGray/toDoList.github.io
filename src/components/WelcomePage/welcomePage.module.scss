@@ -1,0 +1,70 @@
+@import "/src/assets/base/variables.scss";
+.wrapper {
+	position: absolute;
+	top: 45%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	user-select: none;
+	position: relative;
+}
+
+.logoWrap{
+	position: absolute;
+	top: 20px;
+	left: 50px;
+}
+.title {
+	font-size: 8rem;
+	color: $main-text-color;
+	margin-bottom: 20px;
+	animation: title infinite 6s ease-in-out;
+	
+}
+@keyframes title {
+	0%{
+		opacity: 0;
+	}
+	40%{
+		opacity: 1;
+	}
+	100%{
+		opacity: 0;
+	}
+}
+.subtitle {
+	font-size: 30px;
+	color: $element-dec-color;
+	font-weight: 100;
+	margin-bottom: 50px;
+	animation: subtitle 2s ease-in;
+}
+@keyframes subtitle {
+	0%{
+		opacity: 0;
+	}
+	60%{
+		opacity: 0;
+	}
+	100%{
+		opacity: 1;
+	}
+	
+	
+}
+.button {
+	background-color: transparent;
+	border: 1px solid $main-text-color;
+	font-size: 20px;
+	color: $main-text-color;
+	text-transform: uppercase;
+	padding:10px 30px;
+	border-radius: 10px;
+	font-weight: 500;
+	cursor: pointer;
+	transition: background-color 0.3s ease-in, color 0.3s ease-in;
+	&:hover{
+		background-color: transparentize($color: $element-dec-color, $amount: 0.7) ;
+		
+	}
+}

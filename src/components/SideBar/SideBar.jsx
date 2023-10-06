@@ -4,14 +4,22 @@ import Button from "../UI/button/Button";
 
 import SideBarList from "./SideBarList/SideBarList";
 
-import Calendar from "../Calendar/Calendar";
 import StaticBarList from "./StaticBarList/StaticBarList";
 
-function SideBar({taskData, isModal, setIsModal, isBurger, filterTasks, tasksFilter}) {
+function SideBar({
+  taskData,
+  tasksDataCopy,
+  setTasksDataCopy,
+  setIsModal,
+  isBurger,
+  filterTasks,
+  getTasks,
+}) {
+  const [selectedListItem, setSelectedListItem] = React.useState("All tasks");
   return (
     <div className={`${cl.navBar} ${isBurger && cl.navActive}`}>
       <Button
-        onClick={() => setIsModal(!isModal)}
+        onClick={() => setIsModal(true)}
         brd={0}
         pos="relative"
         pdY={15}
@@ -20,8 +28,20 @@ function SideBar({taskData, isModal, setIsModal, isBurger, filterTasks, tasksFil
         bg="#65798aa0">
         Create
       </Button>
-      <SideBarList taskData={taskData} />
-      <StaticBarList name={"Calendar"} filterTasks={filterTasks} tasksFilter={tasksFilter}/>
+      <SideBarList
+        taskData={taskData}
+        tasksDataCopy={tasksDataCopy}
+        setTasksDataCopy={setTasksDataCopy}
+        selectedListItem={selectedListItem}
+        setSelectedListItem={setSelectedListItem}
+        getTasks={getTasks}
+      />
+      <StaticBarList
+        setSelectedListItem={setSelectedListItem}
+        selectedListItem={selectedListItem}
+        name={"Calendar"}
+        filterTasks={filterTasks}
+      />
     </div>
   );
 }

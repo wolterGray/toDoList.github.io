@@ -9,8 +9,9 @@ import {
 import ListContentItem from "../SideBarList/ListContentItem/ListContentItem";
 import cl from "../SideBarList/ListContentItem/listContentItem.module.scss";
 
-function StaticBarList({filterTasks, tasksFilter}) {
+function StaticBarList({filterTasks, setSelectedListItem, selectedListItem}) {
   const [isListOpen, setIsListOpen] = React.useState(true);
+
   const staticListItem = [
     {
       icon: <BsCalendar2Date className={cl.icon_list} />,
@@ -19,20 +20,16 @@ function StaticBarList({filterTasks, tasksFilter}) {
     {
       icon: <BsCalendar2Date className={cl.icon_list} />,
       name: "Today",
-      
     },
     {
       icon: <BsFillSunriseFill className={cl.icon_list} />,
       name: "Tomorrow",
-      
     },
     {
       icon: <BsClockHistory className={cl.icon_list} />,
       name: "Next 7 days",
-      
-    }
+    },
   ];
-
   return (
     <ListName
       name={"Calendar"}
@@ -42,7 +39,12 @@ function StaticBarList({filterTasks, tasksFilter}) {
       {staticListItem.map((item, index) => {
         return (
           <ListContentItem
-            onClick={() => filterTasks(item.name)}
+            onClick={() => {
+              filterTasks(item.name);
+              setSelectedListItem();
+            }}
+            setSelectedListItem={setSelectedListItem}
+            selectedListItem={selectedListItem}
             count={0}
             key={index}
             icon={item.icon}

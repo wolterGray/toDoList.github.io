@@ -5,9 +5,8 @@
 	height: 40px;
 	font-size: 20px;
 	border-radius: 10px;
-	margin-bottom: 20px;
 	outline: none;
-	border: 1px solid $main-text-color;
+	border: none;
 	background: transparent;
 	padding-left: 10px;
 	color: $main-text-color;
@@ -16,14 +15,14 @@
 	
 	&::placeholder {
 		color: transparentize($main-text-color, 0.5);
-		font-size: 18px;
+		font-size: 16px;
 	}
 }
 .input_error {
-	border: 1px solid red;
-	animation: inputer 0.3s  ease-in-out;
+	border: 1px solid rgba(255, 0, 0, 0.708) !important;
+	animation: inputer 0.4s  ease-in-out;
 	&::placeholder{
-		color: rgba(255, 0, 0, 0);
+		color: rgba(255, 0, 0, 0.711);
 	}
 }
 @keyframes inputer {

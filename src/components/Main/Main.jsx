@@ -1,149 +1,107 @@
 import React from "react";
 import SideBar from "../SideBar/SideBar";
 import uuid from "react-uuid";
-import Task from "../Tasks/Task";
 import cl from "./main.module.scss";
 import Container from "../UI/container/Container";
 import NothingPage from "../NothingPage/NothingPage";
 import ModalWindTheme from "../CreateModalTasksWind/ModalWindTheme";
 import ModalWindTask from "../CreateModalTasksWind/ModalWindTask";
+import Task from "../Tasks/Task";
+import ListName from "../SideBar/SideBarList/ListName/ListName";
+import axios from "axios";
+import {API_TASKS_EDIT, API_TODO_URL, TASKS} from "../../network/urlConst";
 
-function Main({isBurger, tasksData, setTasksData}) {
-  const [tasksFilter, setTasksFilter] = React.useState(null);
-  const [isModalTheme, setIsModalTheme] = React.useState(false);
-  const day = new Date();
-  const [isModalTask, setIsModalTask] = React.useState(false);
+function Main({isBurger, tasksData, setTasksData, getTasks,isPending, setIsPending}) {
+  const [tasksDataCopy, setTasksDataCopy] = React.useState(null);
+  const [isModal, setIsModal] = React.useState(null);
+  const [clickTheme, setClickTheme] = React.useState("");
   const [id, setId] = React.useState("");
+  const day = new Date();
+
   function daysInMonth(month, year) {
     return new Date(year, month, 0).getDate();
   }
   const addNewTheme = (title) => {
-    setTasksData([...tasksData, {id: uuid(), theme: title, tasks: []}]);
-  };
-  const removeTheme = (id) => {
-    setTasksData(tasksData.filter((f) => f.id != id));
-  };
-  const editTheme = (id, value) => {
-    setTasksData(tasksData.map((e) => (e.id == id ? {...e, theme: value} : e)));
-  };
-  const addNewTask = (id, name, description, date, time) => {
-    setTasksData(
-      tasksData.map((e) =>
-        e.id == id
-          ? {
-              ...e,
-              tasks: [
-                ...e.tasks,
-                {
-                  id: uuid(),
-                  name,
-                  description,
-                  date,
-                  time,
-                  isDone: false,
-                },
-              ],
-            }
-          : e
-      )
-    );
-  };
-  const removeTask = (id) => {
-    setTasksData(
-      tasksData.map(
-        (e) => e && {...e, tasks: e.tasks.filter((f) => f.id != id)}
-      )
-    );
-  };
-  const editTaskTitle = (id, newValue) => {
-    setTasksData((prev) =>
-      prev.map(
-        (item) =>
-          tasksData && {
-            ...item,
-            ...item.tasks.map((e) =>
-              e.id == id ? (e.name = newValue) : e.name
-            ),
-          }
-      )
-    );
-  };
-  const editTaskIsDone = (id, value) => {
-    setTasksData((prev) =>
-      prev.map(
-        (item) =>
-          tasksData && {
-            ...item,
-            ...item.tasks.map((e) =>
-              e.id == id ? (e.isDone = true) : e.isDone
-            ),
-          }
-      )
-    );
+    setIsPending(true)
+    axios
+      .post(API_TODO_URL, {
+        theme: title,
+        color: "#2828285e",
+        tasks: [],
+      })
+      .then(() => getTasks())
+      .catch((err) => console.log(err));
   };
 
-  const editTaskDesc = (id, newValue) => {
-    setTasksData((prev) =>
-      prev.map(
-        (item) =>
-          tasksData && {
-            ...item,
-            ...item.tasks.map((e) =>
-              e.id == id ? (e.description = newValue) : e.description
-            ),
-          }
-      )
-    );
+  const addNewTask = (id, name, description, date, time) => {
+    setIsPending(true)
+    axios
+      .post(API_TODO_URL + id + "/" + TASKS, {
+        id: uuid(),
+        name,
+        description,
+        date,
+        time,
+        isDone: false,
+      })
+      .then(() => getTasks());
+
+    // setTasksData(
+    //   tasksData.map((task) =>
+    //     task.id == id
+    //       ? {
+    //           ...task,
+    //           tasks: [
+    //             ...task.tasks,
+    //             {
+    //               id: uuid(),
+    //               name,
+    //               description,
+    //               date,
+    //               time,
+    //               isDone: false,
+    //             },
+    //           ],
+    //         }
+    //       : task
+    //   )
+    // );
   };
-  const editTaskDate = (id, newValue) => {
-    setTasksData((prev) =>
-      prev.map(
-        (item) =>
-          tasksData && {
-            ...item,
-            ...item.tasks.map((e) =>
-              e.id == id ? (e.date = newValue) : e.date
-            ),
-          }
-      )
-    );
-  };
-  const editTaskTime = (id, newValue) => {
-    setTasksData((prev) =>
-      prev.map(
-        (item) =>
-          tasksData && {
-            ...item,
-            ...item.tasks.map((e) =>
-              e.id == id ? (e.time = newValue) : e.time
-            ),
-          }
-      )
-    );
-  };
+
   const filterTasks = (name) => {
-    if (name == "All days") setTasksFilter(tasksData);
+    setClickTheme(name);
+    if (name == "All days")
+      setTasksDataCopy(
+        tasksData
+          .map((e) =>
+            e ? {...e, tasks: e.tasks.filter((f) => f.isDone == false)} : e
+          )
+          .filter((e) => e.tasks.length > 0)
+      );
     if (name == "Today")
-      setTasksFilter(
-        tasksData.map((e) =>
-          e.tasks.length > 0
-            ? {
+      setTasksDataCopy(
+        tasksData
+          .map(
+            (e) =>
+              e && {
                 ...e,
                 tasks: e.tasks.filter(
-                  (f) => parseInt(f.date.split("-")[2]) == day.getDate()
+                  (f) =>
+                    !f.isDone && parseInt(f.date.split("-")[2]) == day.getDate()
                 ),
               }
-            : e
-        )
+          )
+          .filter((i) => i.tasks.length > 0)
       );
-
     if (name == "Tomorrow")
-      setTasksFilter(
-        tasksData.map((e) =>
-          e
-            ? {
+      setTasksDataCopy(
+        tasksData
+          .map(
+            (e) =>
+              e && {
                 ...e,
                 tasks: e.tasks.filter((f) =>
+                  !f.isDone &&
                   parseInt(f.date.split("-")[1]) == day.getMonth() + 1
                     ? parseInt(f.date.split("-")[2]) > day.getDate() &&
                       parseInt(f.date.split("-")[2]) <= day.getDate() + 1
@@ -154,16 +112,19 @@ function Main({isBurger, tasksData, setTasksData}) {
                       day.getDate() + 1
                 ),
               }
-            : e
-        )
+          )
+          .filter((i) => i.tasks.length > 0)
       );
+
     if (name == "Next 7 days")
-      setTasksFilter(
-        tasksData.map((e) =>
-          e
-            ? {
+      setTasksDataCopy(
+        tasksData
+          .map(
+            (e) =>
+              e && {
                 ...e,
                 tasks: e.tasks.filter((f) =>
+                  !f.isDone &&
                   parseInt(f.date.split("-")[1]) == day.getMonth() + 1
                     ? parseInt(f.date.split("-")[2]) <= day.getDate() + 7
                     : day.getDate() +
@@ -173,74 +134,75 @@ function Main({isBurger, tasksData, setTasksData}) {
                       day.getDate() + 7
                 ),
               }
-            : e
-        )
+          )
+          .filter((i) => i.tasks.length > 0)
       );
   };
-
-  React.useEffect(() => {
-    setTasksFilter(tasksData);
-  }, [tasksData]);
-  const isModal = (isTheme, isTask) => {
-    if (isTheme) {
+  
+  const isCreateModal = (isModal) => {
+    if (isModal) {
       return (
         <ModalWindTheme
           idTheme={id}
-          isModalTheme={isModalTheme}
-          setIsModalTheme={setIsModalTheme}
+          isModal={isModal}
+          setIsModal={setIsModal}
           addNewTheme={addNewTheme}
         />
       );
     }
-    if (isTask) {
+    if (isModal == false) {
       return (
         <ModalWindTask
           idTheme={id}
-          isModalTheme={isModalTheme}
-          setIsModalTheme={setIsModalTheme}
-          isModalTask={isModalTask}
-          setIsModalTask={setIsModalTask}
-          taskData={tasksData}
-          addNewTheme={addNewTheme}
           addNewTask={addNewTask}
+          setIsModal={setIsModal}
         />
       );
     }
   };
-
+  React.useEffect(() => {
+    setTasksDataCopy(tasksData);
+  }, [tasksData]);
   return (
     <div className={cl.main_wrap}>
-      {isModal(isModalTheme, isModalTask)}
+      {isCreateModal(isModal)}
       <SideBar
-        filterTasks={filterTasks}
-        tasksFilter={tasksFilter}
-        isModal={isModalTheme}
-        setIsModal={setIsModalTheme}
-        isBurger={isBurger}
-        setId={setId}
         taskData={tasksData}
-        addNewTitle={addNewTheme}
-        removeTheme={removeTheme}
-        editTheme={editTheme}
+        tasksDataCopy={tasksDataCopy}
+        setTasksDataCopy={setTasksDataCopy}
+        isModal={isModal}
+        setIsModal={setIsModal}
+        isBurger={isBurger}
+        filterTasks={filterTasks}
+        getTasks={getTasks}
       />
       <Container wd={80}>
-        {tasksData.length > 0 ? (
-          <Task
-            removeTask={removeTask}
-            setIsModalTask={setIsModalTask}
-            tasksDataFilter={tasksFilter}
-            editTaskTitle={editTaskTitle}
-            editTaskDesc={editTaskDesc}
-            editTaskDate={editTaskDate}
-            editTaskTime={editTaskTime}
-            editTaskIsDone={editTaskIsDone}
-            setId={setId}
-            id={id}
-            editTheme={editTheme}
-            removeTheme={removeTheme}
-          />
+        {tasksDataCopy && tasksDataCopy.length > 0 ? (
+          tasksDataCopy.map((task) => (
+            <Task
+            setIsPending={setIsPending}
+              key={task.id}
+              id={task.id}
+              theme={task.theme}
+              color={task.color}
+              task={task}
+              tasksData={tasksData}
+              setTasksData={setTasksData}
+              setIsModal={setIsModal}
+              setId={setId}
+              getTasks={getTasks}
+            />
+          ))
+        ) : tasksData.length > 0 ? (
+          <NothingPage>You don't have anything {clickTheme} yet!:)</NothingPage>
         ) : (
-          <NothingPage />
+          <>
+          <NothingPage>
+            There's nothing here yet... Use the left panel to create a new task!
+          </NothingPage>
+          </>
+           
+          
         )}
       </Container>
     </div>
